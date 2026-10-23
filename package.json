@@ -1,0 +1,59 @@
+{
+  "name": "bootstrap3-vanilla-stubs",
+  "version": "1.0.0",
+  "description": "Dependency-free, jQuery-free drop-in replacement for Bootstrap 3's JavaScript plugins (modal, dropdown, collapse, tab).",
+  "keywords": [
+    "bootstrap",
+    "bootstrap3",
+    "jquery",
+    "vanilla",
+    "modal",
+    "dropdown",
+    "collapse",
+    "tab",
+    "security",
+    "cve"
+  ],
+  "author": "Nick Piazza",
+  "license": "MIT",
+  "homepage": "https://github.com/NeekPizza/bootstrap3-vanilla-stubs#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NeekPizza/bootstrap3-vanilla-stubs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NeekPizza/bootstrap3-vanilla-stubs/issues"
+  },
+  "type": "module",
+  "main": "./dist/bootstrap3-vanilla-stubs.cjs",
+  "module": "./dist/bootstrap3-vanilla-stubs.mjs",
+  "browser": "./dist/bootstrap3-vanilla-stubs.min.js",
+  "unpkg": "./dist/bootstrap3-vanilla-stubs.min.js",
+  "jsdelivr": "./dist/bootstrap3-vanilla-stubs.min.js",
+  "exports": {
+    ".": {
+      "import": "./dist/bootstrap3-vanilla-stubs.mjs",
+      "require": "./dist/bootstrap3-vanilla-stubs.cjs"
+    },
+    "./global": "./dist/bootstrap3-vanilla-stubs.min.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src/index.js"
+  ],
+  "sideEffects": true,
+  "scripts": {
+    "build": "node scripts/build.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
+    "prepublishOnly": "npm test && npm run build"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^5.0.5",
+    "esbuild": "^0.28.2",
+    "happy-dom": "^21.0.4",
+    "vitest": "^5.0.5"
+  }
+}
