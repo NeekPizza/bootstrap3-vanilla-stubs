@@ -55,7 +55,7 @@ jobs:
     environment: npm
     permissions:
       contents: read
-      id-token: write # npm provenance
+      id-token: write # npm trusted publishing (OIDC) + provenance
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
@@ -74,12 +74,13 @@ jobs:
             exit 1
           fi
       - run: npm run build
+      # Authenticates via npm trusted publishing; no NPM_TOKEN secret needed.
       - name: Publish
-        run: |
-          if [[ "${{ github.event.release.prerelease }}" == "true" ]]; then
-            npm publish --provenance --access public --tag next
-          else
-            npm publish --provenance --access public
-          fi
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          PRERELEASE: ${{ github.event.release.prerelease }}
+        run: |
+          if [[ "$PRERELEASE" == "true" ]]; then
+            npm publish --access public --tag next
+          else
+            npm publish --access public
+          fi

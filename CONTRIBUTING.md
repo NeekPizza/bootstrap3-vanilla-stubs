@@ -56,7 +56,8 @@ git push -u origin fix/dropdown-event-bubbling
 2. Create a GitHub Release from `main` with tag `vx.y.z`. Mark it as a pre-release
    to publish under the `next` dist-tag.
 3. The `CI & Publish` workflow runs tests, checks that the tag matches
-   `package.json`, builds, and publishes to npm with provenance.
+   `package.json`, builds, and publishes to npm via trusted publishing (with
+   provenance attached automatically).
 
 ## Repository setup (one-time, maintainers)
 
@@ -66,7 +67,8 @@ The rules above are enforced by GitHub settings, not just by convention:
   require status checks `Test (Node 22)`, `Test (Node 24)` and `Branch naming` to
   pass, require branches to be up to date, and block force pushes and deletions.
   Enable "Do not allow bypassing the above settings".
-- **Secrets:** add an npm automation token as `NPM_TOKEN` to the `npm` environment
-  (Settings → Environments). Alternatively, configure npm
-  [trusted publishing](https://docs.npmjs.com/trusted-publishers) for this
-  workflow and drop the token.
+- **npm publishing:** uses npm
+  [trusted publishing](https://docs.npmjs.com/trusted-publishers), so no token
+  secret is stored in GitHub. The trusted publisher on npmjs.com must point at
+  this repository and the `publish.yml` workflow (and the `npm` environment, if
+  an environment is set there).
